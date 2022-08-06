@@ -1,34 +1,86 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# NEXT + TS + ESLint 초기 세팅
 
-## Getting Started
-
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
+### CNA + TS
+```jsx
+yarn create next-app --typescript
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Axios
+```jsx
+yarn add axios
+```
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+### ESLint
+```jsx
+yarn add -D eslint@^7.11.0 lint-staged prettier eslint-config-prettier eslint-plugin-prettier@^3.4.0 eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-import eslint-plugin-jsx-a11y eslint-plugin-simple-import-sort
+```
+```jsx
+yarn add -D @typescript-eslint/eslint-plugin @typescript-eslint/parser
+```
+`.prettierrc`, `.eslintrc.json`파일 생성 및 작성
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+**이후 추가적인 라이브러리 설치**
 
-## Learn More
+# 기타 세팅
 
-To learn more about Next.js, take a look at the following resources:
+### 절대경로 세팅
+`.tsconfig`에 다음의 코드 추가
+```jsx
+"baseurl":"."
+"paths": {
+      "src/*": ["./src/*"],
+      "public/*": ["./public/*"],
+}
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
+### NEXT SVG 설정
+```jsx
+yarn add babel-plugin-module-resolver
+```
+```jsx
+yarn add babel-plugin-inline-react-svg
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+`src/types`에 `image.d.ts`파일 생성
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+`.babelrc`생성 후 다음의 코드 추가
+```jsx
+{
+  "presets": ["next/babel"],
+  "plugins": [
+    "inline-react-svg",
+    [
+      "module-resolver",
+      {
+        "alias": {
+          "src": "./src",
+          "public": "./public"
+        }
+      }
+    ]
+  ]
+}
+```
+
+`.babelrc` 다음과 같이 수정
+```jsx
+{
+  "presets": ["next/babel"],
+  "plugins": [
+    "inline-react-svg",
+    [
+      "module-resolver",
+      {
+        "alias": {
+          "src": "./src",
+          "public": "./public"
+        }
+      }
+    ]
+  ]
+}
+```
+
